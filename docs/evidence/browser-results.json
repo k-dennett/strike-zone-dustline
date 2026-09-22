@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-09-22T03:18:26.892Z",
+  "browser": "151.0.7922.34",
+  "checks": [
+    {
+      "name": "Arranque local sin peticiones externas",
+      "status": "passed"
+    },
+    {
+      "name": "Inicio de práctica y control real",
+      "status": "passed",
+      "inputMode": "cursor alternativo real"
+    },
+    {
+      "name": "Movimiento WASD, salto y aterrizaje",
+      "status": "passed"
+    },
+    {
+      "name": "Colisión con muro sólido",
+      "status": "passed"
+    },
+    {
+      "name": "Disparo real con raycast, consumo de munición e impacto",
+      "status": "passed"
+    },
+    {
+      "name": "Recarga completa y animación visible",
+      "status": "passed"
+    },
+    {
+      "name": "Pistola semiautomática: un tiro por pulsación",
+      "status": "passed"
+    },
+    {
+      "name": "Apuntar ADS",
+      "status": "passed"
+    },
+    {
+      "name": "Lanzamiento, física y explosión de granada",
+      "status": "passed"
+    },
+    {
+      "name": "Web Audio produce señal real al disparar",
+      "status": "passed",
+      "state": "running",
+      "rms": 0.020318478770086856
+    },
+    {
+      "name": "Silencio con M elimina señal de audio",
+      "status": "passed",
+      "peakMuted": 0
+    },
+    {
+      "name": "Escape pausa simulación y conserva partida",
+      "status": "passed"
+    },
+    {
+      "name": "Reanudar conserva estado y aplica ajustes",
+      "status": "passed"
+    },
+    {
+      "name": "Supervivencia: nueva partida y aparición de enemigos",
+      "status": "passed"
+    },
+    {
+      "name": "Progreso de oleada y reposición",
+      "status": "passed"
+    },
+    {
+      "name": "Muerte y reinicio limpio",
+      "status": "passed"
+    },
+    {
+      "name": "No se puede plantar una bomba en el aire",
+      "status": "passed"
+    },
+    {
+      "name": "Plantar manteniendo E y activar cuenta atrás",
+      "status": "passed"
+    },
+    {
+      "name": "Pausa congela temporizador de bomba",
+      "status": "passed"
+    },
+    {
+      "name": "Detonación, intermedio sin daño y siguiente ronda",
+      "status": "passed"
+    },
+    {
+      "name": "Enemigo desactiva bomba y ronda se repite",
+      "status": "passed"
+    },
+    {
+      "name": "Ajustes persisten tras recargar",
+      "status": "passed"
+    },
+    {
+      "name": "Captura rechazada: recuperación con menú y control alternativo",
+      "status": "passed"
+    },
+    {
+      "name": "Diseño estrecho y aviso de teclado/ratón",
+      "status": "passed"
+    },
+    {
+      "name": "Sin errores JavaScript ni dependencias de red externas",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "externalRequests": []
+}

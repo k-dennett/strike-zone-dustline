@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-09-22T03:18:35.828Z",
+  "browser": "151.0.7922.34",
+  "checks": [
+    "Enemigo que se acerca activa alerta y pasos sin inventar daño",
+    "Disparo real del bot activa BAJO FUEGO",
+    "Disparo fallido avisa sin restar salud",
+    "Impacto genera viñeta roja visible y arco hacia el atacante",
+    "La dirección del impacto se adapta al giro del jugador",
+    "Indicadores se retiran al terminar el peligro",
+    "No hay alerta visual de proximidad a través de muros",
+    "Salud crítica tiene prioridad y conserva visible la mira",
+    "Pausa congela feedback y reducir efectos suaviza el destello",
+    "Nueva práctica elimina alerta, latidos e impactos anteriores",
+    "Preferencia de efectos reducidos persiste"
+  ],
+  "errors": []
+}

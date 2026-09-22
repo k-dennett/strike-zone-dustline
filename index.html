@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#161b19" />
+  <meta name="description" content="Strike Zone: Dustline. Un FPS táctico en primera persona, con supervivencia, operaciones de bomba y campo de práctica." />
+  <title>Strike Zone — Dustline</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js" } }
+  </script>
+</head>
+<body>
+  <div id="hud" class="hidden" aria-label="Estado de la partida">
+    <div class="hud-mission"><span class="live-dot"></span> DUSTLINE <span id="status-text">OPERACIÓN ACTIVA</span></div>
+    <div id="combat-alert" class="hidden" role="status" aria-live="polite" aria-atomic="true" data-level="near">
+      <span class="combat-alert-icon" aria-hidden="true">!</span>
+      <div class="combat-alert-copy"><strong id="combat-alert-title">ENEMIGOS CERCA</strong><span id="combat-alert-detail">Mantente alerta.</span></div>
+    </div>
+    <div id="damage-direction" class="hidden" aria-hidden="true"><span></span></div>
+    <div id="crosshair" aria-hidden="true">
+      <span class="ch t"></span><span class="ch b"></span>
+      <span class="ch l"></span><span class="ch r"></span><span class="ch dot"></span>
+    </div>
+    <div id="hitmarker" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div id="top-center">
+      <div id="wave">OLEADA 1</div>
+      <div id="enemies-left"></div>
+      <div id="objective-text">Elimina a los enemigos y sobrevive.</div>
+    </div>
+    <div id="bomb-timer" class="hidden"></div>
+    <div id="message" role="status"></div>
+    <div id="kill-feed" aria-live="polite"></div>
+    <div id="plant-wrap" class="hidden">
+      <div id="plant-hint">QUIETO EN EL SUELO · MANTÉN <b>E</b> PARA PLANTAR</div>
+      <div id="plant-bar-bg"><div id="plant-bar"></div></div>
+    </div>
+    <div id="reload-indicator" class="hidden">RECARGANDO</div>
+    <canvas id="minimap" width="170" height="170" aria-label="Minimapa de la arena"></canvas>
+    <div id="bottom-left">
+      <div class="label"><span class="health-cross">+</span> ESTADO VITAL</div>
+      <div class="health-reading"><div id="hp-num">100</div><span>HP</span></div>
+      <div id="hp-wrap"><div id="hp-bar"></div></div>
+    </div>
+    <div class="hud-shortcuts"><span><b>R</b> RECARGAR</span><span><b>G</b> GRANADA</span><span><b>ESC</b> PAUSA</span></div>
+    <div id="bottom-right">
+      <div id="weapon-name">AK-47</div>
+      <div id="ammo">30 <span>/ 90</span></div>
+      <div id="grenades">GRANADAS 2</div>
+    </div>
+    <div id="kills">BAJAS 0</div>
+    <div id="damage-overlay" aria-hidden="true"></div>
+  </div>
+
+  <main id="menu">
+    <header class="menu-header">
+      <a class="brand" href="./" aria-label="Strike Zone, inicio"><span class="brand-mark" aria-hidden="true">Z</span><span>STRIKE ZONE <small>TACTICAL FPS</small></span></a>
+      <div class="header-status"><span class="live-dot"></span> LOCAL <span class="header-divider">/</span> CONTRA BOTS</div>
+    </header>
+    <div class="menu-layout">
+      <section class="menu-panel" aria-label="Selecciona una operación">
+        <div class="eyebrow"><span></span> DUSTLINE <span class="eyebrow-detail">/ ARENA 01</span></div>
+        <h1 id="menu-title">STRIKE<br /><span>ZONE.</span></h1>
+        <p class="tag">Entra en la zona. Controla el terreno.<br />Cada disparo cuenta.</p>
+        <p id="loading-status" role="status">Preparando la arena…</p>
+        <button id="resume-btn" class="resume-button hidden"><span>REANUDAR OPERACIÓN</span><span aria-hidden="true">↗</span></button>
+        <button id="fallback-btn" class="fallback-button hidden" aria-describedby="fallback-help"><span>JUGAR SIN CAPTURA</span><span aria-hidden="true">↗</span></button>
+        <p id="fallback-help" class="fallback-help hidden">Arrastra clic derecho para mirar/apuntar; flechas para girar; Esc pausa.</p>
+        <div class="section-label"><span>ELIGE TU OPERACIÓN</span><span>01 — 03</span></div>
+        <div class="btn-row">
+          <button id="play-btn" class="mode-card mode-primary" disabled>
+            <span class="mode-number" aria-hidden="true">01</span>
+            <span class="mode-copy"><strong>SUPERVIVENCIA</strong><small>Oleadas de enemigos. Resiste y supera tu récord.</small></span>
+            <span class="mode-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button id="bomb-btn" class="mode-card" disabled>
+            <span class="mode-number" aria-hidden="true">02</span>
+            <span class="mode-copy"><strong>OPERACIÓN BOMBA</strong><small>Planta en A o B. Defiende hasta la detonación.</small></span>
+            <span class="mode-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button id="training-btn" class="mode-card" disabled>
+            <span class="mode-number" aria-hidden="true">03</span>
+            <span class="mode-copy"><strong>CAMPO DE PRÁCTICA</strong><small>Explora la arena y afina tu puntería sin presión.</small></span>
+            <span class="mode-arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <details class="settings-panel">
+          <summary>AJUSTES <span>SONIDO · RATÓN · GRÁFICOS <b aria-hidden="true">+</b></span></summary>
+          <div class="settings-grid">
+            <label for="volume">Volumen<input id="volume" type="range" min="0" max="100" value="55" /></label>
+            <label for="sensitivity">Sensibilidad<input id="sensitivity" type="range" min="30" max="180" value="100" /></label>
+            <label for="quality">Gráficos<select id="quality"><option value="high" selected>Alta calidad</option><option value="low">Rendimiento</option></select></label>
+          </div>
+          <label class="effects-option" for="reduced-effects"><input id="reduced-effects" type="checkbox" /><span>Reducir destellos y sacudidas</span></label>
+          <button id="mute-btn" class="text-button" aria-pressed="false">SILENCIAR SONIDO</button>
+        </details>
+        <details class="controls-panel">
+          <summary>CONTROLES <span>TECLADO + RATÓN <b aria-hidden="true">+</b></span></summary>
+          <div class="controls-grid">
+            <span><b>W A S D</b> Moverse</span><span><b>SHIFT</b> Correr</span>
+            <span><b>ESPACIO</b> Saltar</span><span><b>CLIC IZQ.</b> Disparar</span>
+            <span><b>CLIC DER.</b> Apuntar</span><span><b>R</b> Recargar</span>
+            <span><b>1 / 2</b> Cambiar arma</span><span><b>G</b> Granada</span>
+            <span><b>E</b> Plantar bomba</span><span><b>ESC</b> Pausa</span>
+            <span><b>M</b> Silenciar sonido</span>
+          </div>
+        </details>
+        <p class="input-note">Al entrar, haz clic para capturar el ratón. <kbd>ESC</kbd> lo libera.</p>
+        <p class="mobile-notice">Este juego necesita teclado y ratón. Ábrelo en un computador para jugar.</p>
+      </section>
+      <aside class="arena-caption" aria-label="Escenario">
+        <span class="arena-index">01 / CAMPO DE OPERACIONES</span>
+        <h2>DUSTLINE</h2>
+        <p>Patios abiertos. Pasillos estrechos.<br />Encuentra tu ángulo.</p>
+        <div class="arena-tags"><span>3 MODOS</span><span>2 ARMAS</span><span>UNA ARENA</span></div>
+      </aside>
+    </div>
+    <footer class="menu-footer"><span><span class="live-dot"></span> FPS TÁCTICO · UN JUGADOR</span><span id="session-best">MEJOR MARCA · 0 BAJAS</span><span class="footer-right">MOVERSE. APUNTAR. SOBREVIVIR.</span></footer>
+  </main>
+
+  <section id="death-screen" class="hidden" aria-label="Resultado de la operación">
+    <div class="result-panel"><div class="eyebrow"><span></span> INFORME DE OPERACIÓN</div>
+      <h1 class="dead">HAS CAÍDO.</h1>
+      <p id="death-stats"></p>
+      <button id="restart-btn">VOLVER A INTENTAR <span aria-hidden="true">↗</span></button>
+      <button id="death-menu-btn" class="death-menu-button">VOLVER AL MENÚ</button>
+      <p class="result-note">Una nueva ruta. Un mejor ángulo. Otra oportunidad.</p>
+    </div>
+  </section>
+  <noscript><div class="noscript-message">Activa JavaScript para entrar en Strike Zone.</div></noscript>
+  <script type="module" src="bootstrap.js"></script>
+</body>
+</html>

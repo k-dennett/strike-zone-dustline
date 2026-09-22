@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Strike Zone 3D</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="style.css" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+</head>
+<body>
+
+<div id="hud" class="hidden">
+  <div id="crosshair">
+    <span class="ch t"></span><span class="ch b"></span>
+    <span class="ch l"></span><span class="ch r"></span>
+    <span class="ch dot"></span>
+  </div>
+  <div id="hitmarker">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div id="top-center">
+    <div id="wave">OLEADA 1</div>
+    <div id="enemies-left"></div>
+  </div>
+  <div id="bomb-timer" class="hidden"></div>
+  <div id="message"></div>
+  <div id="plant-wrap" class="hidden">
+    <div id="plant-hint">MANTÉN <b>E</b> PARA PLANTAR</div>
+    <div id="plant-bar-bg"><div id="plant-bar"></div></div>
+  </div>
+  <canvas id="minimap" width="170" height="170"></canvas>
+  <div id="bottom-left">
+    <div class="label">SALUD</div>
+    <div id="hp-wrap"><div id="hp-bar"></div></div>
+    <div id="hp-num">100</div>
+  </div>
+  <div id="bottom-right">
+    <div id="weapon-name">AK-47</div>
+    <div id="ammo">30 <span>/ 90</span></div>
+    <div id="grenades">GRANADAS 2</div>
+  </div>
+  <div id="kills">BAJAS 0</div>
+  <div id="damage-overlay"></div>
+</div>
+
+<div id="menu">
+  <h1>STRIKE ZONE 3D</h1>
+  <p class="tag">FPS táctico contra bots · estilo Counter-Strike</p>
+  <div class="controls-grid">
+    <span><b>WASD</b> Moverse</span>
+    <span><b>Shift</b> Correr</span>
+    <span><b>Espacio</b> Saltar</span>
+    <span><b>Clic izq</b> Disparar</span>
+    <span><b>Clic der</b> Apuntar (ADS)</span>
+    <span><b>R</b> Recargar</span>
+    <span><b>1 / 2</b> Cambiar arma</span>
+    <span><b>G</b> Lanzar granada</span>
+    <span><b>E</b> Plantar bomba</span>
+    <span><b>Esc</b> Pausa</span>
+  </div>
+  <div class="btn-row">
+    <button id="play-btn">▶ SUPERVIVENCIA</button>
+    <button id="bomb-btn">💣 MODO BOMBA</button>
+  </div>
+</div>
+
+<div id="death-screen" class="hidden">
+  <h1 class="dead">HAS CAÍDO</h1>
+  <p id="death-stats"></p>
+  <button id="restart-btn">↻ REINTENTAR</button>
+</div>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>

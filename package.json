@@ -1,0 +1,16 @@
+{
+  "name": "strike-zone-dustline",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs && node tests/browser.mjs && node tests/combat-browser.mjs",
+    "test:unit": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "test:combat": "node tests/combat-browser.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
