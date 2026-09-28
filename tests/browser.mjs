@@ -3,7 +3,8 @@ import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 
-const base = process.env.TEST_URL || 'http://127.0.0.1:8123';
+const port = process.env.PORT || 3000;
+const base = process.env.TEST_URL || `http://127.0.0.1:${port}`;
 let server;
 try { await fetch(base); } catch {
   server = spawn(process.execPath, ['server.mjs'], { stdio: 'inherit' });

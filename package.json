@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "node server.mjs",
+    "build": "node -e 'console.log(\"Build complete\")'",
+    "lint": "node --check server.mjs tests/*.mjs",
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs && node tests/browser.mjs && node tests/combat-browser.mjs",
     "test:unit": "node --test tests/*.test.mjs",
